@@ -101,3 +101,7 @@ class DatabaseWrapper(Psycopg2DatabaseWrapper):
         else:
             pool.dispose()
             del db_pool.pools[key]
+
+    def get_new_connection(self, conn_params):
+        return db_pool.connect(**conn_params)
+
