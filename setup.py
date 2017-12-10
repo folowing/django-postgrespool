@@ -3,6 +3,7 @@
 
 import os
 import sys
+import platform
 
 try:
     from setuptools import setup
@@ -15,9 +16,12 @@ if sys.argv[-1] == "publish":
     sys.exit()
 
 required = [
-    'psycopg2',
     'sqlalchemy'
 ]
+if platform.python_implementation() == 'PyPy':
+    required.append('psycopg2cffi')
+else:
+    required.append('psycopg2')
 
 setup(
     name='django-postgrespool',
